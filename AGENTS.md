@@ -1,0 +1,1 @@
+- 每日处理：方法在agent/workflow/daily-work.md，需处理信息在inbox.md
