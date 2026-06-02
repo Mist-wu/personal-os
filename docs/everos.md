@@ -10,9 +10,9 @@ EverOS 是给 AI agent 用的「记忆操作系统」：把对话自动抽取成
 
 - **入口是「我与 pi agent 的对话」**：不再依赖 `inbox.md`，通过持续对话让 agent 越来越了解我。
 - **EverOS 直接作为存储**：长期记忆与用户画像落在 EverOS，而不是 Markdown 知识库。
-- **封装成一个 pi extension**：注册原生 `memory_search` / `memory_add` 工具，agent 在对话中随时调用。
+- **封装成一个 pi extension**：注册原生 `memory_*` / `agent_*` 工具，agent 在对话中随时调用。
 - **是否记入由 agent 判断**：不每轮强制写入，由 agent 判断「这轮值得记」时才调用 `memory_add`。
-- **云端托管**：用 EverOS 云端服务，全局 `pip install everos` + API Key 即可，不自建基础设施。
+- **云端托管**：用 EverOS 云端服务，配置 API Key 即可，不自建基础设施（纯 TS、无 Python 依赖）。
 - **个人使用**：单用户，`user_id` 固定为 `wu`，采用 `assistant` 场景模式（episode / profile / foresight / eventlog 四类记忆）。
 
 > 场景模式一旦写入数据即不可更改，个人单用户固定为 `assistant`。
@@ -26,7 +26,7 @@ EVEROS_API_KEY="<your_key>"
 ```
 
 extension 会优先读环境变量 `EVEROS_API_KEY`，否则从自身位置向上查找含该键的 `.env`
-（即便经全局软链加载也能找到仓库根的 `.env`）。base URL 默认 `https://api.evermind.ai`，
+（即便经 pi package 从别处加载也能找到仓库根的 `.env`）。base URL 默认 `https://api.evermind.ai`，
 可用 `EVEROS_BASE_URL` 覆盖。
 
 ## extension：pi-everos-memory（已实现）
@@ -40,8 +40,8 @@ everos-memory/
 ├── tsconfig.json
 ├── src/
 │   ├── index.ts      # 入口：注册工具
-│   ├── tools.ts      # memory_search / memory_add / memory_profile
-│   ├── everos.ts     # fetch 直连 EverOS REST API（search / add+flush / get profile）
+│   ├── tools.ts      # memory_* + agent_* 共 9 个工具
+│   ├── everos.ts     # fetch 直连 EverOS REST API（search / get / add+flush / agent add+flush / delete）
 │   ├── config.ts     # USER_ID=wu、method、base URL、loadApiKey()
 │   └── prompts.ts    # 工具使用准则
 ├── test/             # node --import tsx --test

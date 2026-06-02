@@ -5,14 +5,17 @@
 # 构建
 
 - [x] 接入 EverOS 作为记忆层（云端，详见 `docs/everos.md`）
-- [x] 纯 TS pi 扩展包 `.pi/extensions/everos-memory/`（`memory_search` / `memory_add` / `memory_profile`，fetch 直连 REST），软链全局生效
+- [x] 纯 TS pi 扩展包 `.pi/extensions/everos-memory/`（fetch 直连 REST，9 个工具：`memory_*` + `agent_*`）
+- [x] 按 pi package 规范用 `pi install` 全局接入（替代手动软链）
 - [ ] AGENTS.md 引导更细分文件，渐进式加载
 - [ ] README.md 使用方法（中英文）
 
 # 工作流
 
 - 入口是「我与 pi agent 的对话」，通过持续对话让 agent 越来越了解我
-- agent 自行判断：需要历史上下文时 `memory_search`，遇到值得长期记住的信息时 `memory_add`
+- agent 自行判断：需要历史上下文时 `memory_search`，值得长期记住时 `memory_add`，
+  纠正用 `memory_add`（EverOS 自动消解矛盾），真要抹除才 `memory_delete`；
+  另有 `memory_profile` / `memory_episodes` / `memory_foresight` 和 `agent_*` 系列
 - 记忆与画像由 EverOS 维护，按意图重建上下文
 - 给出规划、建议、Brainstorm
 
