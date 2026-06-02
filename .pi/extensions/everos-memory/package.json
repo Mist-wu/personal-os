@@ -1,0 +1,59 @@
+{
+  "name": "pi-everos-memory",
+  "version": "0.1.0",
+  "description": "EverOS-backed long-term memory for pi. Model-callable user-memory tools (search/add/profile/episodes/foresight/delete) and agent-memory tools (skills/cases/record).",
+  "type": "module",
+  "license": "MIT",
+  "main": "src/index.ts",
+  "files": [
+    "src",
+    "AGENTS.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "pi-package",
+    "pi",
+    "pi-extension",
+    "extension",
+    "memory",
+    "everos"
+  ],
+  "pi": {
+    "extensions": [
+      "./src/index.ts"
+    ]
+  },
+  "scripts": {
+    "test": "node --import tsx --test test/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "verify": "npm run typecheck && npm test"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-ai": "*",
+    "@earendil-works/pi-coding-agent": "*",
+    "typebox": "*"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-ai": {
+      "optional": true
+    },
+    "@earendil-works/pi-coding-agent": {
+      "optional": true
+    },
+    "typebox": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@earendil-works/pi-ai": "0.78.0",
+    "@earendil-works/pi-coding-agent": "0.78.0",
+    "@types/node": "^25.9.1",
+    "tsx": "^4.22.3",
+    "typebox": "1.1.39",
+    "typescript": "^6.0.3"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  }
+}
