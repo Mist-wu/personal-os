@@ -8,6 +8,7 @@
 
 <br/>
 
+![npm](https://img.shields.io/npm/v/pi-everos-memory?style=flat-square)
 ![pi](https://img.shields.io/badge/pi-extension-2563eb)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
 ![EverOS](https://img.shields.io/badge/memory-EverOS-7c3aed)
@@ -81,15 +82,23 @@ echo 'EVEROS_API_KEY="<your_key>"' > .env
 
 > 扩展会优先读环境变量 `EVEROS_API_KEY`，否则从自身位置向上查找含该键的 `.env`。
 
-**2. 安装为 pi package** — 以「本地路径源」接入（源码留在仓库，`pi install` 只写入 settings、不复制）：
+**2. 安装为 pi package**
 
 ```bash
-pi install "$PWD"          # 用户级 ~/.pi/agent/settings.json，全机生效
-# 或 pi install -l "$PWD"  # 项目级 .pi/settings.json，随仓库共享
+pi install npm:pi-everos-memory              # 推荐：从 npm 安装（用户级）
+# pi install npm:pi-everos-memory@0.1.0    # 固定版本
+# pi install -l npm:pi-everos-memory       # 项目级 .pi/settings.json
+```
+
+本地开发（源码留在仓库，`pi install` 只写入 settings、不复制）：
+
+```bash
+pi install "$PWD"
+# 或 pi install -l "$PWD"
 ```
 
 > `pi list` 查看已装包 · `pi remove <source>` 卸载 · `pi config` 启用/禁用单项资源。
-> 详见 [pi package 规范](https://github.com/earendil-works/pi/tree/main/packages/coding-agent/docs/packages.md)。
+> 版本记录见 [Releases](https://github.com/Mist-wu/pi-everos-memory/releases) · [pi package 规范](https://github.com/earendil-works/pi/tree/main/packages/coding-agent/docs/packages.md)。
 
 **3. 开聊** — 启动 pi 正常对话即可，agent 会按需 `memory_search` / `memory_add`。
 
@@ -112,6 +121,7 @@ npm run verify     # typecheck + 测试
 | 文件 | 内容 |
 | --- | --- |
 | [`docs/everos.md`](docs/everos.md) | EverOS 记忆层设计、工具说明、配置与接入 |
+| [`docs/RELEASING.md`](docs/RELEASING.md) | npm 与 GitHub Release 发版流程 |
 | [`AGENTS.md`](AGENTS.md) | 模块地图与约定 |
 | [`TODO.md`](TODO.md) | 路线图与设计原则 |
 

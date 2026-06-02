@@ -4,6 +4,18 @@
   "description": "EverOS-backed long-term memory for pi. Model-callable user-memory tools (search/add/profile/episodes/foresight/delete) and agent-memory tools (skills/cases/record).",
   "type": "module",
   "license": "MIT",
+  "author": "Mist-wu",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mist-wu/pi-everos-memory.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Mist-wu/pi-everos-memory/issues"
+  },
+  "homepage": "https://github.com/Mist-wu/pi-everos-memory#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "src/index.ts",
   "files": [
     "src",
@@ -27,7 +39,9 @@
   "scripts": {
     "test": "node --import tsx --test test/*.test.ts",
     "typecheck": "tsc --noEmit",
-    "verify": "npm run typecheck && npm test"
+    "verify": "npm run typecheck && npm test",
+    "prepack": "npm run verify",
+    "publish:dry-run": "npm pack --dry-run"
   },
   "peerDependencies": {
     "@earendil-works/pi-ai": "*",
