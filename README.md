@@ -8,7 +8,7 @@
 
 <br/>
 
-![npm](https://img.shields.io/npm/v/pi-everos-memory?style=flat-square)
+[![npm](https://img.shields.io/npm/v/pi-everos-memory?style=flat-square&logo=npm)](https://www.npmjs.com/package/pi-everos-memory)
 ![pi](https://img.shields.io/badge/pi-extension-2563eb)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
 ![EverOS](https://img.shields.io/badge/memory-EverOS-7c3aed)
