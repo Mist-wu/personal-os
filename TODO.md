@@ -5,8 +5,8 @@
 # 构建
 
 - [x] 接入 EverOS 作为记忆层（云端，详见 `docs/everos.md`）
-- [x] 纯 TS pi 扩展包 `.pi/extensions/everos-memory/`（fetch 直连 REST，9 个工具：`memory_*` + `agent_*`）
-- [x] 按 pi package 规范用 `pi install` 全局接入（替代手动软链）
+- [x] 纯 TS pi 扩展包（仓库根即包，fetch 直连 REST，9 个工具：`memory_*` + `agent_*`）
+- [x] 按 pi package 规范用 `pi install "$PWD"` 全局接入（替代手动软链）
 - [ ] AGENTS.md 引导更细分文件，渐进式加载
 - [ ] README.md 使用方法（中英文）
 

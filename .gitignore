@@ -1,2 +1,9 @@
 /profile/
 .env
+
+node_modules/
+dist/
+*.tsbuildinfo
+.venv/
+coverage/
+.DS_Store
