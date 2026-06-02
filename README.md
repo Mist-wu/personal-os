@@ -127,7 +127,7 @@ npm run verify     # typecheck + 测试
 
 ## 🧭 设计原则
 
-- 单用户、个人使用，`user_id` 固定 `wu`。
+- 单用户、个人使用。
 - 记忆存储交给 EverOS，不维护 Markdown 知识库。
 - 人定方向、做关键决策与审核；AI 负责检索、总结、草稿、初步分析。
 
