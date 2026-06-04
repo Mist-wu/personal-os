@@ -6,6 +6,8 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-06-04
+
 ### Added
 
 - `memory_add` now accepts `attachments` (local file paths): signs via `/api/v1/object/sign`, uploads to S3, and links them as multimodal `ContentItem`s on the latest user message (image: jpg/jpeg/png/gif/webp; doc: pdf/doc/txt/html/htm/eml; audio: mp3/wav).
@@ -25,5 +27,6 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `pi-package` manifest for `pi install npm:pi-everos-memory` and [pi.dev/packages](https://pi.dev/packages) discovery.
 - Unit tests for package manifest and smoke checks.
 
-[Unreleased]: https://github.com/Mist-wu/pi-everos-memory/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/Mist-wu/pi-everos-memory/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/Mist-wu/pi-everos-memory/releases/tag/v0.2.0
 [0.1.0]: https://github.com/Mist-wu/pi-everos-memory/releases/tag/v0.1.0
