@@ -1,6 +1,6 @@
 {
   "name": "pi-everos-memory",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "EverOS-backed long-term memory for pi. Model-callable user-memory tools (search/add/profile/episodes/foresight/delete) and agent-memory tools (skills/cases/record).",
   "type": "module",
   "license": "MIT",
