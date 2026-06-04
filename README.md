@@ -74,13 +74,21 @@ pi agent ──tool call──▶ pi-everos-memory ──fetch/HTTPS──▶ Ev
 
 ## 🚀 快速开始
 
-**1. 配置 API Key** — 在 <https://everos.evermind.ai> 申请，写入仓库根 `.env`（已被 `.gitignore`，不提交）：
+**1. 配置 API Key** — 在 <https://everos.evermind.ai> 申请。
+
+**npm 安装（推荐）** — 密钥放在 pi 用户目录（npm 包内不含 `.env`）：
+
+```bash
+echo 'EVEROS_API_KEY="<your_key>"' >> ~/.pi/agent/.env
+```
+
+**本地开发**（`pi install "$PWD"`）— 可写在仓库根 `.env`（已被 `.gitignore`，不提交）：
 
 ```bash
 echo 'EVEROS_API_KEY="<your_key>"' > .env
 ```
 
-> 扩展会优先读环境变量 `EVEROS_API_KEY`，否则从自身位置向上查找含该键的 `.env`。
+> 查找顺序：`EVEROS_API_KEY` 环境变量 → 从扩展安装目录向上找 `.env` → `~/.pi/agent/.env` / `~/.config/everos/.env` → 从当前工作目录向上找 `.env`。
 
 **2. 安装为 pi package**
 

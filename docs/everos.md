@@ -25,9 +25,9 @@ EverOS 是给 AI agent 用的「记忆操作系统」：把对话自动抽取成
 EVEROS_API_KEY="<your_key>"
 ```
 
-extension 会优先读环境变量 `EVEROS_API_KEY`，否则从自身位置向上查找含该键的 `.env`
-（即便经 pi package 从别处加载也能找到仓库根的 `.env`）。base URL 默认 `https://api.evermind.ai`，
-可用 `EVEROS_BASE_URL` 覆盖。
+extension 会优先读环境变量 `EVEROS_API_KEY`，否则按顺序查找：从扩展安装目录向上找 `.env`、
+`~/.pi/agent/.env`（**npm 安装推荐**）、`~/.config/everos/.env`、`~/.everos/.env`、
+再从当前工作目录向上找。base URL 默认 `https://api.evermind.ai`，可用 `EVEROS_BASE_URL` 覆盖。
 
 ## extension：pi-everos-memory（已实现）
 

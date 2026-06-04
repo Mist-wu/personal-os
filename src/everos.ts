@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { basename, extname } from "node:path";
 
-import { BASE_URL, DEFAULT_MEMORY_TYPES, DEFAULT_METHOD, loadApiKey, REQUEST_TIMEOUT_MS, USER_ID } from "./config.js";
+import { API_KEY_SETUP_HINT, BASE_URL, DEFAULT_MEMORY_TYPES, DEFAULT_METHOD, loadApiKey, REQUEST_TIMEOUT_MS, USER_ID } from "./config.js";
 
 export type Role = "user" | "assistant";
 export type AgentRole = "user" | "assistant" | "tool";
@@ -36,9 +36,7 @@ export class EverOSError extends Error {}
 async function callApi(path: string, body: unknown, signal?: AbortSignal): Promise<unknown> {
   const apiKey = loadApiKey();
   if (!apiKey) {
-    throw new EverOSError(
-      "EVEROS_API_KEY not found. Set it in the environment or in pi-everos-memory/.env.",
-    );
+    throw new EverOSError(API_KEY_SETUP_HINT);
   }
 
   const controller = new AbortController();
