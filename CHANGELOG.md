@@ -6,6 +6,12 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-06-04
+
+### Changed
+
+- Attach tool prompt guidelines per tool instead of sharing one `TOOL_PROMPT_GUIDELINES` array across all 9 tools. pi flattens each active tool's guidelines into the system prompt without cross-tool dedup, so the shared array was repeated ~9x; now each bullet lives on the single tool it names (`MEMORY_PROMPT_GUIDELINES`).
+
 ## [0.2.0] - 2026-06-04
 
 ### Added
@@ -27,6 +33,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `pi-package` manifest for `pi install npm:pi-everos-memory` and [pi.dev/packages](https://pi.dev/packages) discovery.
 - Unit tests for package manifest and smoke checks.
 
-[Unreleased]: https://github.com/Mist-wu/pi-everos-memory/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/Mist-wu/pi-everos-memory/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/Mist-wu/pi-everos-memory/releases/tag/v0.2.1
 [0.2.0]: https://github.com/Mist-wu/pi-everos-memory/releases/tag/v0.2.0
 [0.1.0]: https://github.com/Mist-wu/pi-everos-memory/releases/tag/v0.1.0

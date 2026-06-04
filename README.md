@@ -86,7 +86,7 @@ echo 'EVEROS_API_KEY="<your_key>"' > .env
 
 ```bash
 pi install npm:pi-everos-memory              # 推荐：从 npm 安装（用户级）
-# pi install npm:pi-everos-memory@0.2.0    # 固定版本
+# pi install npm:pi-everos-memory@0.2.1    # 固定版本
 # pi install -l npm:pi-everos-memory       # 项目级 .pi/settings.json
 ```
 

@@ -2,9 +2,9 @@
 
 ## 当前状态
 
-- **npm**：[`pi-everos-memory@0.2.0`](https://www.npmjs.com/package/pi-everos-memory) 已发布 ✅
-- **GitHub Release**：[v0.2.0](https://github.com/Mist-wu/pi-everos-memory/releases/tag/v0.2.0) ✅
-- 安装：`pi install npm:pi-everos-memory`（固定版本：`pi install npm:pi-everos-memory@0.2.0`）
+- **npm**：[`pi-everos-memory@0.2.1`](https://www.npmjs.com/package/pi-everos-memory) 已发布 ✅
+- **GitHub Release**：[v0.2.1](https://github.com/Mist-wu/pi-everos-memory/releases/tag/v0.2.1) ✅
+- 安装：`pi install npm:pi-everos-memory`（固定版本：`pi install npm:pi-everos-memory@0.2.1`）
 
 后续版本按下方「发布新版本」流程操作。
 
