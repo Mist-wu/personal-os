@@ -37,8 +37,8 @@
 
 | 工具 | 说明 |
 | --- | --- |
-| `memory_search` | 检索相关历史上下文、偏好、事实、决策 |
-| `memory_add` | 把本轮值得长期记住的关键消息写入记忆 |
+| `memory_search` | 检索相关历史上下文、偏好、事实、决策（可选 `method`/`radius`/`include_original_data`） |
+| `memory_add` | 把本轮值得长期记住的关键消息写入记忆（可选 `attachments` 上传本地文件作多模态附件） |
 | `memory_profile` | 取回 EverOS 沉淀的用户画像 |
 | `memory_episodes` | 按时间倒序列出近期 episode（回顾 / 复盘） |
 | `memory_foresight` | 浮现提醒、deadline 等时间敏感项 |
@@ -50,7 +50,7 @@
 | --- | --- |
 | `agent_skills` | 取回从过往任务轨迹蒸馏出的可复用技能 |
 | `agent_cases` | 取回相似任务的具体过往做法 |
-| `agent_record` | 记录一段值得学习的已完成任务轨迹 |
+| `agent_record` | 记录一段值得学习的已完成任务轨迹（支持真实 `tool_calls`/`tool` 步骤） |
 
 > [!NOTE]
 > **写入由 agent 判断**（`memory_add` / `agent_record`），不每轮强制写入。

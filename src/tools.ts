@@ -14,6 +14,7 @@ import {
   getProfile,
   searchForesight,
   searchMemories,
+  uploadLocalFiles,
 } from "./everos.js";
 import { TOOL_PROMPT_GUIDELINES } from "./prompts.js";
 
@@ -37,12 +38,30 @@ const SearchParams = Type.Object({
       description: "Memory types to search. Default [episodic_memory, profile].",
     }),
   ),
+  method: Type.Optional(
+    StringEnum(["keyword", "vector", "hybrid", "agentic"] as const, {
+      description:
+        "Retrieval method (default hybrid). agentic decomposes complex multi-part queries but is ~10x slower and costlier — use only when hybrid is insufficient.",
+    }),
+  ),
+  radius: Type.Optional(
+    Type.Number({ description: "Cosine similarity threshold (0.0-1.0) for vector-based methods.", minimum: 0, maximum: 1 }),
+  ),
+  include_original_data: Type.Optional(
+    Type.Boolean({ description: "Also return the original source data alongside each result." }),
+  ),
 });
 
 const AddParams = Type.Object({
   messages: Type.Array(
     Type.Object({ role: StringEnum(["user", "assistant"] as const), content: Type.String() }),
     { description: "Salient user/assistant messages from this turn, verbatim.", minItems: 1 },
+  ),
+  attachments: Type.Optional(
+    Type.Array(Type.String(), {
+      description:
+        "Optional local file paths to remember alongside the messages (image: jpg/jpeg/png/gif/webp; doc: pdf/doc/txt/html/htm/eml; audio: mp3/wav). Uploaded to EverOS and linked to the latest user message.",
+    }),
   ),
   session_id: Type.Optional(Type.String({ description: "Optional session id to group related memories." })),
 });
@@ -72,11 +91,32 @@ const AgentGetParams = Type.Object({
   limit: Type.Optional(Type.Integer({ description: "Max items (default 20).", minimum: 1, maximum: 100 })),
 });
 
+const ToolCallParam = Type.Object({
+  id: Type.String({ description: "Tool call id; a later tool message references it via tool_call_id." }),
+  type: StringEnum(["function"] as const, { description: 'Always "function".' }),
+  function: Type.Object({
+    name: Type.String({ description: "Tool / function name." }),
+    arguments: Type.String({ description: "JSON-encoded arguments string." }),
+  }),
+});
+
 const AgentRecordParams = Type.Object({
   messages: Type.Array(
-    Type.Object({ role: StringEnum(["user", "assistant"] as const), content: Type.String() }),
+    Type.Object({
+      role: StringEnum(["user", "assistant", "tool"] as const),
+      content: Type.Optional(
+        Type.String({ description: "Message text. Omit on an assistant message that only issues tool_calls." }),
+      ),
+      tool_calls: Type.Optional(
+        Type.Array(ToolCallParam, { description: "Tool calls issued by an assistant message (OpenAI format)." }),
+      ),
+      tool_call_id: Type.Optional(
+        Type.String({ description: "Required on a tool message: the id of the tool_call it responds to." }),
+      ),
+    }),
     {
-      description: "The task trajectory: the request and the agent's approach. Summarize tool steps into assistant messages.",
+      description:
+        "The task trajectory: the request and the agent's approach. Prefer faithful tool steps (assistant tool_calls + tool results); plain assistant summaries of tool steps also work.",
       minItems: 1,
     },
   ),
@@ -98,6 +138,9 @@ export function registerMemoryTools(pi: ExtensionAPI): void {
           query: params.query,
           ...(params.top_k !== undefined ? { topK: params.top_k } : {}),
           ...(params.memory_types !== undefined ? { memoryTypes: params.memory_types } : {}),
+          ...(params.method !== undefined ? { method: params.method } : {}),
+          ...(params.radius !== undefined ? { radius: params.radius } : {}),
+          ...(params.include_original_data !== undefined ? { includeOriginalData: params.include_original_data } : {}),
           ...(signal ? { signal } : {}),
         }),
       );
@@ -114,7 +157,11 @@ export function registerMemoryTools(pi: ExtensionAPI): void {
     parameters: AddParams,
     async execute(_id, params, signal) {
       const messages: ChatMessage[] = params.messages.map((m) => ({ role: m.role, content: m.content }));
-      return jsonResult(await addMemories(messages, params.session_id, signal ?? undefined));
+      const attachments =
+        params.attachments && params.attachments.length > 0
+          ? await uploadLocalFiles(params.attachments, signal ?? undefined)
+          : undefined;
+      return jsonResult(await addMemories(messages, params.session_id, signal ?? undefined, attachments));
     },
   });
 
@@ -212,7 +259,12 @@ export function registerMemoryTools(pi: ExtensionAPI): void {
     promptGuidelines: TOOL_PROMPT_GUIDELINES,
     parameters: AgentRecordParams,
     async execute(_id, params, signal) {
-      const messages: AgentMessage[] = params.messages.map((m) => ({ role: m.role, content: m.content }));
+      const messages: AgentMessage[] = params.messages.map((m) => ({
+        role: m.role,
+        ...(m.content !== undefined ? { content: m.content } : {}),
+        ...(m.tool_calls !== undefined ? { tool_calls: m.tool_calls } : {}),
+        ...(m.tool_call_id !== undefined ? { tool_call_id: m.tool_call_id } : {}),
+      }));
       return jsonResult(await addAgentMemory(messages, params.session_id, signal ?? undefined));
     },
   });
